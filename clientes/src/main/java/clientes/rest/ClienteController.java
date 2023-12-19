@@ -69,7 +69,7 @@ public class ClienteController {
 	}
 	
 	@PutMapping("{id}")
-	
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<?> atualizar(@PathVariable Long id, @RequestBody Cliente clienteAtualizado){
 		
 		Optional<Cliente> clienteExistente = repository.findById(id);
