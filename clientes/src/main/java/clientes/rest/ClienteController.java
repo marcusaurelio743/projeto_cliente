@@ -2,6 +2,8 @@ package clientes.rest;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +35,7 @@ public class ClienteController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Cliente salvar( @RequestBody Cliente cliente) {
+	public Cliente salvar( @RequestBody @Valid Cliente cliente) {
 		return repository.save(cliente);
 	}
 	
@@ -70,7 +72,7 @@ public class ClienteController {
 	
 	@PutMapping("{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public ResponseEntity<?> atualizar(@PathVariable Long id, @RequestBody Cliente clienteAtualizado){
+	public ResponseEntity<?> atualizar(@PathVariable Long id, @RequestBody @Valid Cliente clienteAtualizado){
 		
 		Optional<Cliente> clienteExistente = repository.findById(id);
 		
