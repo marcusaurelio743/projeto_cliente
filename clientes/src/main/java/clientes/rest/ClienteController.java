@@ -41,14 +41,14 @@ public class ClienteController {
 	
 	@GetMapping("{id}")
 	
-	public ResponseEntity<Cliente> getById( @PathVariable Long id) {
+	public ResponseEntity<?> getById( @PathVariable Long id) {
 		
 		Optional<Cliente> clienteExistente = repository.findById(id);
 		
 		Cliente cliente = new Cliente();
 		
 		if(clienteExistente.isEmpty()) {
-			return ResponseEntity.notFound().build();
+			return new ResponseEntity<String>("Cliente Não encontrado", HttpStatus.NOT_FOUND);
 		}
 		else {
 			cliente = clienteExistente.get();
@@ -62,7 +62,7 @@ public class ClienteController {
 		Optional<Cliente> clienteExistente = repository.findById(id);
 		
 		if(clienteExistente.isEmpty()) {
-			return ResponseEntity.notFound().build();
+			return  new ResponseEntity<String>("Usuario não encontrado", HttpStatus.NOT_FOUND);
 		}else {
 			repository.deleteById(id);
 			return ResponseEntity.noContent().build();
@@ -77,7 +77,7 @@ public class ClienteController {
 		Optional<Cliente> clienteExistente = repository.findById(id);
 		
 		if(clienteExistente.isEmpty()) {
-			return ResponseEntity.notFound().build();
+			return new ResponseEntity<String>("cliente Não encontrado", HttpStatus.NOT_FOUND);
 		}else {
 			clienteExistente.get().setNome(clienteAtualizado.getNome());
 			clienteExistente.get().setCpf(clienteAtualizado.getCpf());
